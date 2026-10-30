@@ -1,0 +1,628 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="docx-page-size" content="A4">
+<title>元素战机 游戏开发文档</title>
+<style>
+@page {
+  @bottom-center { content: "第 " counter(page) " 页"; }
+  @bottom-right { content: "元素战机 · 开发文档"; }
+}
+@page cover {
+  @bottom-center { content: none; }
+  @bottom-right { content: none; }
+}
+section[role="cover"] { page: cover; }
+
+* { box-sizing: border-box; }
+
+body {
+  font-family: "宋体", SimSun, serif;
+  font-size: 12pt;
+  line-height: 1.65;
+  color: #1a1a1a;
+  margin: 0;
+}
+
+p {
+  text-indent: 2em;
+  margin: 0 0 0.55em 0;
+  text-align: justify;
+}
+
+h1 {
+  font-family: "黑体", SimHei, sans-serif;
+  font-size: 18pt;
+  font-weight: bold;
+  color: #14385c;
+  margin: 1.4em 0 0.6em 0;
+  padding-bottom: 0.25em;
+  border-bottom: 1.5pt solid #14385c;
+  text-indent: 0;
+}
+
+h2 {
+  font-family: "黑体", SimHei, sans-serif;
+  font-size: 13.5pt;
+  font-weight: bold;
+  color: #1f5c8b;
+  margin: 1.1em 0 0.45em 0;
+  text-indent: 0;
+}
+
+h3 {
+  font-family: "黑体", SimHei, sans-serif;
+  font-size: 12pt;
+  font-weight: bold;
+  color: #2b2b2b;
+  margin: 0.9em 0 0.35em 0;
+  text-indent: 0;
+}
+
+ul, ol {
+  margin: 0.3em 0 0.7em 0;
+  padding-left: 2.2em;
+}
+li {
+  text-indent: 0;
+  margin-bottom: 0.28em;
+  text-align: justify;
+}
+
+code {
+  font-family: Consolas, "Courier New", monospace;
+  font-size: 10.5pt;
+  color: #8a3b1f;
+  background: #f5f2ee;
+  padding: 0 2px;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 0.6em 0 1em 0;
+  font-size: 10.5pt;
+  text-indent: 0;
+}
+th {
+  background: #e8eef5;
+  border: 0.75pt solid #9fb3c8;
+  padding: 5px 7px;
+  font-family: "黑体", SimHei, sans-serif;
+  font-size: 10.5pt;
+  font-weight: bold;
+  text-align: left;
+  color: #14385c;
+}
+td {
+  border: 0.75pt solid #9fb3c8;
+  padding: 5px 7px;
+  vertical-align: top;
+  line-height: 1.5;
+}
+tbody tr:nth-child(even) td { background: #f7f9fc; }
+
+.report-cover {
+  padding: 3cm 2.2cm;
+  min-height: 24cm;
+}
+.cover-line {
+  height: 4pt;
+  width: 2.6cm;
+  background: #14385c;
+  margin-bottom: 1.6em;
+}
+.cover-category {
+  font-family: "黑体", SimHei, sans-serif;
+  font-size: 12pt;
+  color: #1f5c8b;
+  letter-spacing: 0.18em;
+  text-indent: 0;
+  margin-bottom: 2.6em;
+}
+.cover-title {
+  font-family: "黑体", SimHei, sans-serif;
+  font-size: 34pt;
+  font-weight: bold;
+  color: #14385c;
+  text-indent: 0;
+  line-height: 1.25;
+  margin: 0 0 0.15em 0;
+}
+.cover-title-en {
+  font-family: "黑体", SimHei, sans-serif;
+  font-size: 14pt;
+  color: #6b7d90;
+  letter-spacing: 0.12em;
+  text-indent: 0;
+  margin: 0 0 1.4em 0;
+}
+.cover-subtitle {
+  font-size: 15pt;
+  color: #34495e;
+  text-indent: 0;
+  margin: 0 0 5em 0;
+}
+.cover-meta {
+  font-size: 11pt;
+  color: #4a4a4a;
+  line-height: 2;
+  text-indent: 0;
+  border-top: 0.75pt solid #b9c8d6;
+  padding-top: 1em;
+  width: 62%;
+}
+.cover-meta p { text-indent: 0; margin: 0; }
+
+.doc-toc { padding: 0; }
+.toc-title {
+  font-family: "黑体", SimHei, sans-serif;
+  font-size: 18pt;
+  font-weight: bold;
+  color: #14385c;
+  text-indent: 0;
+  border-bottom: 1.5pt solid #14385c;
+  padding-bottom: 0.25em;
+  margin: 0 0 1em 0;
+}
+.toc-list, .toc-list ol, .toc-list ul {
+  list-style: none;
+  list-style-type: none;
+  margin: 0;
+  padding-left: 0;
+}
+.toc-list > li {
+  font-family: "黑体", SimHei, sans-serif;
+  font-size: 11.5pt;
+  font-weight: bold;
+  margin: 0.55em 0 0.2em 0;
+  text-indent: 0;
+}
+.toc-list ol {
+  padding-left: 1.6em;
+  margin-top: 0.15em;
+}
+.toc-list ol li {
+  font-family: "宋体", SimSun, serif;
+  font-size: 10.5pt;
+  font-weight: normal;
+  margin: 0.1em 0;
+  text-indent: 0;
+}
+.toc-list a {
+  color: #1f5c8b;
+  text-decoration: none;
+}
+
+.report-body { padding: 0 2.2cm; }
+.chapter { page-break-before: always; }
+
+</style>
+</head>
+<body>
+
+<section role="cover" class="report-cover">
+  <div class="cover-line"></div>
+  <p class="cover-category">项目技术文档</p>
+  <p class="cover-title">元素战机</p>
+  <p class="cover-title-en">ELEMENT FIGHTER / YUANSUPLAN</p>
+  <p class="cover-subtitle">2D 俯视角弹幕射击游戏 开发文档</p>
+  <div class="cover-meta">
+    <p>提交方向：开发部（程序方向）</p>
+    <p>开发引擎：Unity 2022.3.62f3c1</p>
+    <p>文档版本：v1.0</p>
+    <p>编写日期：2026 年 10 月</p>
+  </div>
+</section>
+
+<section role="body" class="report-body">
+
+<nav class="doc-toc" aria-label="文档目录">
+  <p class="toc-title">目录</p>
+  <ol class="toc-list">
+    <li><a href="#section-1">一、项目概览</a>
+      <ol>
+        <li><a href="#section-1-1">1.1 项目简介</a></li>
+        <li><a href="#section-1-2">1.2 项目档案</a></li>
+        <li><a href="#section-1-3">1.3 核心玩法循环</a></li>
+        <li><a href="#section-1-4">1.4 操作方式</a></li>
+      </ol>
+    </li>
+    <li><a href="#section-2">二、系统架构</a>
+      <ol>
+        <li><a href="#section-2-1">2.1 整体分层</a></li>
+        <li><a href="#section-2-2">2.2 模块清单</a></li>
+        <li><a href="#section-2-3">2.3 模块间通信机制</a></li>
+        <li><a href="#section-2-4">2.4 主循环：固定步长设计</a></li>
+      </ol>
+    </li>
+    <li><a href="#section-3">三、核心系统实现</a>
+      <ol>
+        <li><a href="#section-3-1">3.1 玩家控制</a></li>
+        <li><a href="#section-3-2">3.2 元素系统与属性克制</a></li>
+        <li><a href="#section-3-3">3.3 碰撞与伤害结算</a></li>
+        <li><a href="#section-3-4">3.4 敌人与波次</a></li>
+        <li><a href="#section-3-5">3.5 Boss 三阶段状态机</a></li>
+        <li><a href="#section-3-6">3.6 Boss 技能的模板方法</a></li>
+        <li><a href="#section-3-7">3.7 升级三选一</a></li>
+        <li><a href="#section-3-8">3.8 跨关成长与数值平衡</a></li>
+        <li><a href="#section-3-9">3.9 道具与彩蛋</a></li>
+      </ol>
+    </li>
+    <li><a href="#section-4">四、界面与美术的技术方案</a>
+      <ol>
+        <li><a href="#section-4-1">4.1 全代码生成战斗界面</a></li>
+        <li><a href="#section-4-2">4.2 程序化贴图生成</a></li>
+        <li><a href="#section-4-3">4.3 中文字体与行高陷阱</a></li>
+        <li><a href="#section-4-4">4.4 小地图逐像素渲染</a></li>
+        <li><a href="#section-4-5">4.5 反馈层设计</a></li>
+      </ol>
+    </li>
+    <li><a href="#section-5">五、数据与存档</a>
+      <ol>
+        <li><a href="#section-5-1">5.1 存档结构</a></li>
+        <li><a href="#section-5-2">5.2 序列化方案</a></li>
+        <li><a href="#section-5-3">5.3 首次通关判定的顺序问题</a></li>
+      </ol>
+    </li>
+    <li><a href="#section-6">六、关键技术问题与解决</a></li>
+    <li><a href="#section-7">七、工程化与工具链</a>
+      <ol>
+        <li><a href="#section-7-1">7.1 资源导入自动化</a></li>
+        <li><a href="#section-7-2">7.2 界面骨架一键生成</a></li>
+        <li><a href="#section-7-3">7.3 命令行构建与打包</a></li>
+      </ol>
+    </li>
+    <li><a href="#section-8">八、测试与验证</a></li>
+    <li><a href="#section-9">九、已知不足与后续计划</a>
+      <ol>
+        <li><a href="#section-9-1">9.1 现存问题</a></li>
+        <li><a href="#section-9-2">9.2 后续计划</a></li>
+      </ol>
+    </li>
+    <li><a href="#section-10">十、交付物与运行说明</a></li>
+    <li><a href="#section-11">附录 A 核心脚本索引</a></li>
+    <li><a href="#section-12">附录 B 术语表</a></li>
+  </ol>
+</nav>
+
+</section>
+
+<section role="body" class="report-body" data-page-restart="1">
+
+<h1 id="section-1">一、项目概览</h1>
+
+<h2 id="section-1-1">1.1 项目简介</h2>
+<p>《元素战机》是一款基于 Unity 2022.3 开发的 2D 俯视角弹幕射击游戏。玩家操纵一架战机在大地图上移动，自动向当前朝向持续开火，通过击杀敌人积累经验、在升级时三选一强化属性，并在五个元素属性（火、冰、水、雷、岩）之间自由切换，利用属性克制与元素反应对抗三波杂兵与关底 Boss。</p>
+<p>游戏的设计重点落在两件事上：一是"元素"不是单纯的换皮伤害类型，而是贯穿弹道形态、大招表现、克制倍率与机制联动的完整系统；二是把"刷一把就走"的街机手感与"跨关继承成长"的养成感结合起来，让每一关都既有即时的爽感，也有长期的推进目标。</p>
+<p>项目从一个空白工程起步，全部玩法、界面与表现均由自行编写的 C# 代码驱动，未使用任何第三方玩法框架。</p>
+
+<h2 id="section-1-2">1.2 项目档案</h2>
+<table>
+  <thead>
+    <tr><th style="width:22%">项目</th><th>内容</th></tr>
+  </thead>
+  <tbody>
+    <tr><td>游戏名称</td><td>元素战机（Element Fighter）</td></tr>
+    <tr><td>工程代号</td><td>YuansuPlan</td></tr>
+    <tr><td>引擎版本</td><td>Unity 2022.3.62f3c1（内置渲染管线，2D）</td></tr>
+    <tr><td>开发语言</td><td>C#</td></tr>
+    <tr><td>代码规模</td><td>40 个运行时脚本共 8,805 行，2 个编辑器扩展脚本共 718 行</td></tr>
+    <tr><td>美术资源</td><td>68 张精灵图，13 个音频文件，2 套中文字体</td></tr>
+    <tr><td>关卡数量</td><td>4 个常规关卡 + 1 套无尽模式配置</td></tr>
+    <tr><td>目标平台</td><td>Windows 10 / 11 64 位（可扩展至 WebGL）</td></tr>
+    <tr><td>交付形式</td><td>免安装绿色版可执行包 + 本开发文档</td></tr>
+    <tr><td>存档方式</td><td>JSON 序列化至 persistentDataPath</td></tr>
+  </tbody>
+</table>
+
+<h2 id="section-1-3">1.3 核心玩法循环</h2>
+<p>单局游戏的流程可以拆成一条清晰的闭环：进入关卡后，波次系统按时间轴刷出三波杂兵；击杀杂兵获得经验与能量，经验满即触发升级三选一，能量满即可以释放元素大招；三波清空后触发全屏警告，Boss 登场；击败 Boss 后结算，本局的成长数值按规则写入永久存档，下一关随之解锁。若中途阵亡，本局收益作废并回到结算界面。</p>
+<p>这条闭环里有两个节奏控制点。第一个是升级三选一：它会将全局时间流速降至 0.4 倍，给玩家一个短暂的决策窗口，避免在弹幕中手忙脚乱。第二个是 Boss 登场前的 2.5 秒冻结：把 timeScale 直接设为 0，配合全屏红色覆盖层，把"危险即将到来"这件事做成一个强提示。</p>
+
+<h2 id="section-1-4">1.4 操作方式</h2>
+<table>
+  <thead>
+    <tr><th style="width:22%">操作</th><th style="width:40%">按键</th><th>实现位置</th></tr>
+  </thead>
+  <tbody>
+    <tr><td>移动</td><td>W / A / S / D</td><td><code>PlayerController.Step</code></td></tr>
+    <tr><td>调整射击方向</td><td>↑ ↓ ← →</td><td><code>PlayerController.Step</code></td></tr>
+    <tr><td>射击</td><td>自动开火，无需按键</td><td><code>PlayerController.TryShoot</code></td></tr>
+    <tr><td>释放元素大招</td><td>F / E / X / J</td><td><code>PlayerController.Update</code></td></tr>
+    <tr><td>切换元素属性</td><td>Q / R</td><td><code>PlayerController.Update</code></td></tr>
+    <tr><td>升级三选一</td><td>数字键 1 / 2 / 3 或鼠标点击</td><td><code>UpgradePanel.Update</code></td></tr>
+    <tr><td>暂停</td><td>P</td><td><code>LevelManager.Update</code></td></tr>
+    <tr><td>返回主菜单</td><td>Esc</td><td><code>GameManager.Update</code></td></tr>
+  </tbody>
+</table>
+
+<h1 id="section-2" class="chapter">二、系统架构</h1>
+
+<h2 id="section-2-1">2.1 整体分层</h2>
+<p>项目按职责划分为六层，层与层之间保持单向依赖：数据配置层不引用任何运行时逻辑，表现层只读取核心层的状态，核心层不直接操作任何界面控件。</p>
+<table>
+  <thead>
+    <tr><th style="width:16%">层次</th><th style="width:40%">职责</th><th>代表脚本</th></tr>
+  </thead>
+  <tbody>
+    <tr><td>数据配置层</td><td>静态常量、元素表、关卡表、道具表</td><td><code>GameConfig</code>、<code>ElementDatabase</code>、<code>LevelConfig</code>、<code>ItemDB</code></td></tr>
+    <tr><td>核心管理层</td><td>主循环、关卡状态机、刷怪、面板调度</td><td><code>GameManager</code>、<code>LevelManager</code>、<code>WaveSpawner</code>、<code>UIManager</code></td></tr>
+    <tr><td>实体层</td><td>玩家、敌人、Boss、子弹、道具</td><td><code>PlayerController</code>、<code>Enemy</code>、<code>BossController</code>、<code>Bullet</code>、<code>ItemPickup</code></td></tr>
+    <tr><td>表现层</td><td>特效、飘字、相机、地图、警告层</td><td><code>ExplosionEffect</code>、<code>FloatingText</code>、<code>CameraFollow</code>、<code>MapRenderer</code></td></tr>
+    <tr><td>界面层</td><td>战斗 HUD 与各类面板</td><td><code>HUD</code>、<code>UpgradePanel</code>、<code>MenuPanel</code>、<code>VictoryPanel</code></td></tr>
+    <tr><td>基础设施层</td><td>资源加载、存档、贴图生成、主题</td><td><code>AssetLibrary</code>、<code>SaveSystem</code>、<code>SpriteFactory</code>、<code>UITheme</code></td></tr>
+  </tbody>
+</table>
+
+<h2 id="section-2-2">2.2 模块清单</h2>
+<table>
+  <thead>
+    <tr><th style="width:30%">脚本</th><th style="width:9%">行数</th><th>职责</th></tr>
+  </thead>
+  <tbody>
+    <tr><td><code>HUD.cs</code></td><td>1083</td><td>运行时代码生成全部战斗界面，含血条、能量、连击、小地图、Boss 信息卡</td></tr>
+    <tr><td><code>GameManager.cs</code></td><td>652</td><td>固定步长主循环、实体列表持有、碰撞与伤害结算、音效调度</td></tr>
+    <tr><td><code>PlayerController.cs</code></td><td>626</td><td>移动、自动射击、属性切换、大招释放、受击三态、经验升级</td></tr>
+    <tr><td><code>BossSkills.cs</code></td><td>404</td><td>Boss 召唤物抽象基类与四个专属技能实现</td></tr>
+    <tr><td><code>UltimateSkill.cs</code></td><td>392</td><td>五种元素大招的实体行为</td></tr>
+    <tr><td><code>UpgradePanel.cs</code></td><td>391</td><td>升级三选一卡片与倒计时</td></tr>
+    <tr><td><code>BossController.cs</code></td><td>340</td><td>Boss 三阶段状态机、弹幕模式、召唤与冲刺</td></tr>
+    <tr><td><code>VictoryPanel.cs</code></td><td>310</td><td>通关结算与下一关跳转</td></tr>
+    <tr><td><code>LevelManager.cs</code></td><td>304</td><td>关卡状态机、波次到 Boss 再到胜利的流程编排</td></tr>
+    <tr><td><code>CollectionPanel.cs</code></td><td>285</td><td>图鉴系统（敌人页与道具页）</td></tr>
+    <tr><td><code>MenuPanel.cs</code></td><td>267</td><td>主菜单与角色选择</td></tr>
+    <tr><td><code>Enemy.cs</code></td><td>263</td><td>杂兵工厂、游荡 AI、射击、异常状态、血条</td></tr>
+    <tr><td><code>UIManager.cs</code></td><td>252</td><td>面板显隐总控与流程协调</td></tr>
+    <tr><td><code>SaveSystem.cs</code></td><td>238</td><td>JSON 存档与排行榜</td></tr>
+    <tr><td><code>ItemPickup.cs</code></td><td>233</td><td>六种道具的掉落、吸附与效果</td></tr>
+    <tr><td><code>LevelConfig.cs</code></td><td>232</td><td>五套关卡的静态配置表</td></tr>
+    <tr><td><code>LevelSelectPanel.cs</code></td><td>226</td><td>选关卡片网格</td></tr>
+    <tr><td><code>WaveSpawner.cs</code></td><td>201</td><td>三波杂兵生成与清场判定</td></tr>
+    <tr><td><code>GameOverPanel.cs</code></td><td>164</td><td>失败结算</td></tr>
+    <tr><td><code>LoginPanel.cs</code></td><td>162</td><td>玩家名与快捷登录</td></tr>
+    <tr><td><code>SpriteFactory.cs</code></td><td>155</td><td>程序化生成纯色、圆形、光环、渐变色条、九宫格框</td></tr>
+    <tr><td><code>DoraemonEgg.cs</code></td><td>153</td><td>关卡彩蛋与道具赠送</td></tr>
+    <tr><td><code>RulesPanel.cs</code></td><td>146</td><td>规则说明滚动文本</td></tr>
+    <tr><td><code>CreditsPanel.cs</code></td><td>141</td><td>致谢名单</td></tr>
+    <tr><td><code>CameraFollow.cs</code></td><td>136</td><td>相机跟随、边界钳制、开场运镜</td></tr>
+    <tr><td><code>PlayerGrowth.cs</code></td><td>129</td><td>跨关永久成长与硬上限</td></tr>
+    <tr><td><code>ElementDatabase.cs</code></td><td>116</td><td>元素属性表、克制倍率、反应表</td></tr>
+    <tr><td><code>TitleScreenController.cs</code></td><td>114</td><td>标题页自举与任意键进入</td></tr>
+    <tr><td><code>RankingPanel.cs</code></td><td>102</td><td>排行榜前十</td></tr>
+    <tr><td><code>EnemyBullet.cs</code></td><td>84</td><td>敌方子弹</td></tr>
+    <tr><td><code>BackgroundCover.cs</code></td><td>83</td><td>背景图等比铺满</td></tr>
+    <tr><td><code>BossWarningOverlay.cs</code></td><td>75</td><td>Boss 出场全屏警告</td></tr>
+    <tr><td><code>Bullet.cs</code></td><td>71</td><td>玩家子弹</td></tr>
+    <tr><td><code>GameConfig.cs</code></td><td>56</td><td>全局常量与渲染层级</td></tr>
+    <tr><td><code>ExplosionEffect.cs</code></td><td>56</td><td>爆炸特效</td></tr>
+    <tr><td><code>FloatingText.cs</code></td><td>53</td><td>世界空间飘字</td></tr>
+    <tr><td><code>AssetLibrary.cs</code></td><td>45</td><td>资源加载与缓存</td></tr>
+    <tr><td><code>MapRenderer.cs</code></td><td>41</td><td>地图铺贴</td></tr>
+    <tr><td><code>GameState.cs</code></td><td>14</td><td>九态流程枚举</td></tr>
+    <tr><td><code>Editor/SpriteImportSettings.cs</code></td><td>31</td><td>图片导入规则自动化</td></tr>
+    <tr><td><code>Editor/UILayoutBuilder.cs</code></td><td>687</td><td>一键生成开场界面骨架并自动连线字段</td></tr>
+  </tbody>
+</table>
+
+<h2 id="section-2-3">2.3 模块间通信机制</h2>
+<p>项目并存四种通信方式，按耦合强度从弱到强排列，实际使用时按场景选择。</p>
+<ul>
+  <li><strong>C# 事件</strong>：用于"一件事发生，多方关心"的场合。<code>GameManager.OnEnemyKilled</code> 由波次系统订阅以维护存活计数；<code>WaveSpawner.OnAllWavesCleared</code> 由关卡管理器订阅以触发 Boss。订阅前一律先解绑再绑定，避免场景重载导致回调重复执行。</li>
+  <li><strong>静态类</strong>：所有纯数据与纯工具都做成静态类，例如 <code>LevelConfig</code>、<code>ElementDatabase</code>、<code>SaveSystem</code>。这类代码没有生命周期、没有状态残留，调用方不需要持有引用，是项目里最轻的一种依赖。</li>
+  <li><strong>单例</strong>：<code>GameManager</code>、<code>LevelManager</code>、<code>UIManager</code>、<code>HUD</code> 等需要被全局访问的管理者采用 <code>Instance</code> 单例，在 <code>Awake</code> 中直接赋值。单例只用于"全剧唯一"的对象，不滥用到实体上。</li>
+  <li><strong>Inspector 引用</strong>：六个传统面板的控件字段通过编辑器拖拽绑定，配合 <code>UILayoutBuilder</code> 一键生成并自动连线，避免手工拖错。</li>
+</ul>
+<p>这里有一个设计取舍值得说明：没有引入依赖注入容器，也没有做服务定位器，因为项目规模只有四十个脚本，过度抽象反而增加阅读成本。真正需要解耦的热点（击杀事件、波次事件）用 C# 事件处理，其余直接用单例，是复杂度与可读性的平衡点。</p>
+
+<h2 id="section-2-4">2.4 主循环：固定步长设计</h2>
+<p>游戏逻辑没有直接跑在 <code>Update</code> 上，而是用累加器推进固定步长。<code>GameManager.Update</code> 记录帧间隔，以六十分之一秒为一步，单帧最多补五次，防止卡顿后出现"补帧雪崩"。</p>
+<p>固定步长带来两个直接收益。第一，弹幕密度、移动速度、技能节奏全部与帧率解耦，120Hz 屏幕与 60Hz 屏幕上的手感完全一致。第二，逻辑帧可预测，调试时能按帧数精确复现问题。</p>
+<p>代价是输入采集必须单独处理。<code>Input.GetKeyDown</code> 只在真实帧有效，而高刷新率下某些真实帧并不会执行逻辑步，那一帧按下的键会被直接丢掉，表现为"按大招偶尔没反应"。解决方案是在真实帧把按键写进三个待处理标志位，在逻辑步里消费并清零；非游戏状态时主动清空标志位，防止暂停期间按下的键在恢复后突然生效。</p>
+
+<h1 id="section-3" class="chapter">三、核心系统实现</h1>
+
+<h2 id="section-3-1">3.1 玩家控制</h2>
+<p>移动采用加速度与减速度双参数模型，而不是直接赋值速度。按下方向键时以加速度逼近目标速度，松开时以更大的减速度回落，手感上"起步略缓、刹车干脆"。速度上限由跨关成长决定，避免后期出现瞬移感。</p>
+<p>射击是全自动的，射击间隔由攻速等级换算成帧数，最低限制为两帧，防止后期攻速堆叠导致单帧生成过多子弹。弹道数量随成长增加，以扇形或平行阵列排布。</p>
+<p>受击判定分为三态：无敌帧、护盾抵扣、正常掉血。护盾优先消耗，无敌帧期间忽略一切伤害来源，掉血后触发震屏与低血渐晕。三种状态的优先级写在一个函数里，避免多处判断产生歧义。</p>
+
+<h2 id="section-3-2">3.2 元素系统与属性克制</h2>
+<p>元素表是静态数据，每个元素记录名称、代表色、贴图文件名、伤害倍率与反应规则。克制关系用一个二维倍率表表达，查表即可得到伤害系数，新增元素只需要在表里加一行一列，不需要改动战斗代码。</p>
+<p>同属性攻击会被判定为免疫，这是刻意设计的负反馈：玩家不能一把武器打到底，必须根据敌人属性切换。当两个相克属性相遇时触发元素反应，反应不只是数字变化，还会施加实际状态：冻结让目标停止行动若干帧，超载造成击退，融化与超导施加减速。命中给两点能量，触发反应额外给五点，这条规则实际上在鼓励玩家主动去打克制，而不是站桩输出。</p>
+
+<h2 id="section-3-3">3.3 碰撞与伤害结算</h2>
+<p>项目完全没有使用 Unity 的物理系统，没有 Collider，也没有 Rigidbody，所有碰撞由自研的轴对齐包围盒判定完成：取两个矩形中心距与半宽半高之和比较，相交即命中。这样做的原因有三个：弹幕数量大时物理引擎的开销不划算；需要精确控制判定框尺寸以贴合像素风美术；伤害结算要与元素倍率、反应、能量一并处理，走物理回调反而绕远。</p>
+<p>碰撞检测每逻辑步执行一次，分四组：玩家子弹对敌人、玩家子弹对 Boss、敌方子弹对玩家、敌人本体对玩家。每组内部是朴素的双重循环，靠每帧清理死亡实体来控制列表规模。在当前的敌人数量级下，这个复杂度可以接受；如果后续要上大规模弹幕，这里是最先需要改成空间划分的地方，我在文档第九节把它列为已知优化项。</p>
+
+<h2 id="section-3-4">3.4 敌人与波次</h2>
+<p>杂兵的生成点不在屏幕内，而是按玩家当前视野外的一圈随机取点，保证"敌人从外面飞进来"的观感，而不是凭空出现在画面中央。</p>
+<p>波次系统跑三轮，每一轮的结束条件是两个条件的与：持续时间到，且场上存活敌人清零。开局时按比例先铺一批敌人，避免出现开局几秒无事可做的空窗。三波结束后抛出清场事件，关卡管理器接住后进入 Boss 流程。</p>
+<p>敌人的成长与玩家同步：血量按通关次数递增约三成五，伤害递增约一成八并设上限，而移动速度不参与跨关成长。最后这一条是刻意为之——玩家移速有硬上限，如果敌人还能继续加速，后期会变成无法躲避的必死局面，难度曲线会直接崩掉。</p>
+
+<h2 id="section-3-5">3.5 Boss 三阶段状态机</h2>
+<p>Boss 的生命周期用一个显式阶段枚举管理：入场、一阶段、二阶段、三阶段、死亡。入场阶段从活动区上边缘滑入，期间不攻击，给玩家一个准备窗口。血量降到六成与三成时切换阶段，切换的不仅是数值，还包括弹幕密度与技能类型。</p>
+<p>Boss 的攻击节奏是"一轮环形弹幕、一轮专属技能"交替。这里有一个容易被忽略的细节：如果 Boss 在某一阶段被瞬间打掉大量血量，可能直接跳过技能阶段，玩家就永远见不到这个 Boss 的技能。为此在十分之一血处加了一次强制技能释放，保证每个 Boss 的核心招式至少登场一次。</p>
+
+<h2 id="section-3-6">3.6 Boss 技能的模板方法</h2>
+<p>四个专属技能（熔岩喷柱、海底漩涡、落雷、岩石突刺）共享同一套三段式生命周期，因此抽象出一个基类统一骨架，子类只覆写其中一段。</p>
+<table>
+  <thead>
+    <tr><th style="width:16%">阶段</th><th style="width:28%">帧数</th><th>表现</th></tr>
+  </thead>
+  <tbody>
+    <tr><td>预警</td><td>60</td><td>半透明正弦闪烁，提示"这里即将出事"</td></tr>
+    <tr><td>生效</td><td>45 至 360（各技能不同）</td><td>伤害判定与视觉表现</td></tr>
+    <tr><td>消散</td><td>24</td><td>线性淡出后销毁</td></tr>
+  </tbody>
+</table>
+<p>这套结构把"什么时候危险、危险多久、什么时候结束"变成统一的时间契约，玩家在不同技能之间能建立一致的阅读习惯。子类只需要实现生效期的行为，新增技能不需要重复写预警与消散逻辑。</p>
+<p>元素克制在这里被延伸到了机制层：火柱命中会附加三秒灼烧，而水属性大招释放的瞬间会熄灭场上所有火系召唤物并清除自身灼烧。也就是说元素关系不只体现在伤害数字上，还体现在"能不能解掉对方留下的场地效果"。</p>
+
+<h2 id="section-3-7">3.7 升级三选一</h2>
+<p>升级效果用委托承载：每张卡片持有一个 <code>Action</code>，点击即执行。这样升级池可以自由组合增益，不需要为每一种组合写一个类。卡片有 3 秒倒计时，超时自动选择第一项，防止玩家在减速状态下无限停留。</p>
+<p>前两次升级有保底，必定出现"解锁新元素"的选项，保证新手在一局内就能体验到属性切换这一核心机制。</p>
+
+<h2 id="section-3-8">3.8 跨关成长与数值平衡</h2>
+<p>永久成长有六条线：生命、攻击、弹道数、攻速、移速、能量上限，每一条都有硬上限。上限不是拍脑袋定的，而是从"最坏情况"反推：弹道数封顶五条，是因为再高屏幕就会被弹幕铺满、玩家看不清敌人；移速封顶九级，是因为再快就会穿模般地掠过地图；攻速封顶八级，配合两帧最小间隔刚好不产生性能问题。</p>
+<p>所有写入都经过钳制，读档时也钳制一次，防止旧存档或手改存档带来越界数值。</p>
+
+<h2 id="section-3-9">3.9 道具与彩蛋</h2>
+<p>局内道具共六种，掉落权重不同，拾取后进入漂浮与磁吸状态，靠近玩家时加速吸附。道具效果包括回复、增伤、护盾等，全部通过统一的效果入口分发。</p>
+<p>彩蛋是一个独立实体，固定在活动区右下角，不注册进敌人列表，因此玩家子弹会直接穿过它、不会造成伤害。玩家靠近到一定半径内，它会从道具池中洗牌取三个不重复的道具散落在周围。每关一次，关卡结束时统一清理。这个设计的目的很单纯：给紧张的弹幕节奏留一个喘气点，同时让地图探索有一点正向反馈。</p>
+
+<h1 id="section-4" class="chapter">四、界面与美术的技术方案</h1>
+
+<h2 id="section-4-1">4.1 全代码生成战斗界面</h2>
+<p>战斗 HUD 没有使用任何 Prefab，也没有放在场景里，而是在 <code>HUD.BuildUI</code> 中完全由代码构建：创建独立 Canvas、设置排序层、逐个生成面板与控件、绑定事件。这样做的好处是界面与逻辑同源，改布局只改一处代码；坏处是所有坐标都要手算。</p>
+<p>为此项目封装了一个统一的定位函数，把"锚点、轴心、偏移、尺寸"四个参数收口。同时定下一条纪律：贴边的元素一律用边角锚点，绝不写死绝对坐标。原因是 Canvas 参考分辨率设为 1024×768 且宽高匹配系数取 0.5，当实际窗口是 16:9 时，逻辑宽度会变成约 1180 而不是 1024，写死坐标的控件会直接飞出屏幕。</p>
+
+<h2 id="section-4-2">4.2 程序化贴图生成</h2>
+<p>血条底框、能量条、护盾点、光环、敌人子弹、九宫格面板这些元素如果全部依赖美术出图，既拖进度也难统一风格。项目写了一个贴图工厂，逐像素填充 <code>Texture2D</code> 再转成 <code>Sprite</code>，用一套代码生成整套 UI 素材。</p>
+<p>几个实现要点：渐变条采用上亮下暗加顶部高光带的做法，生成时用白色，实际使用时靠 <code>Image.color</code> 染色，一套纹理就能出多种颜色；柔光环用"距环半径的距离"做出平滑衰减，中心再叠一层淡光；九宫格框必须使用 <code>SpriteMeshType.FullRect</code>，否则默认的 Tight 模式会按 alpha 裁剪网格，九宫格拉伸后会出现破面。另外 <code>Sprite.border</code> 是只读属性，只能在 <code>Sprite.Create</code> 的重载里以参数形式传入，事后赋值无效。</p>
+<p>低血渐晕也是同理，用径向渐变生成"边缘暗红、中心透明"的贴图，血量低于三成时按脉搏节奏脉动。</p>
+
+<h2 id="section-4-3">4.3 中文字体与行高陷阱</h2>
+<p>这是整个项目里排查时间最长的一个问题，值得单独记录。</p>
+<p>症状是：Boss 血条上方的名字底板存在，颜色、层级都正常，但底板里没有文字。最初怀疑是字体缺字、层级遮挡、颜色错误，全部排除。</p>
+<p>真正的原因在行高。所用中文字体的行高约为字号的一点四五倍，而 Unity 的 <code>Text</code> 组件默认垂直溢出模式是截断。当控件矩形高度小于行高时，Unity 不是裁掉一半，而是整行文字直接不渲染。Boss 名用 20 像素字号，控件高度 26 像素，行高需要 29 像素，差了三像素，于是整行消失。</p>
+<p>修复分两步：第一步在统一的文本创建函数里把垂直溢出改成溢出，一处修改解决全局；第二步单独排查那些高度仍然偏小的控件，逐个调整尺寸。同时定下一条项目规范：所有运行时生成的文本，控件高度至少给字号的一点五倍。为了让文字压在亮色背景上依然可读，所有文本统一加黑色描边。</p>
+<p>字体本身做了三级回退：主字体思源黑体，缺失时退到像素体，再缺则退到 Unity 内置字体。这样即使打包时漏了字体资源，界面也不会变成一片空白。</p>
+
+<h2 id="section-4-4">4.4 小地图逐像素渲染</h2>
+<p>小地图是一张 140×140 的运行时纹理，每帧全量上传像素会产生可观开销。项目采用双缓冲：一张基底图预先烘焙好背景、网格线与边框，刷新时先整块拷贝基底，再在上面画敌人点、Boss 点、玩家点与相机视野框，最后一次性上传。</p>
+<p>同时把刷新频率限制在约每秒十二帧，用非缩放时间驱动，保证暂停时小地图仍然跟随鼠标与动效更新，但不会因为每帧重绘而掉帧。</p>
+
+<h2 id="section-4-5">4.5 反馈层设计</h2>
+<p>打击反馈由四件事叠加完成：命中闪白、震屏、飘字、音效。震屏幅度按伤害量分级，飘字走抛物线并在后半段淡出，音效按类型分池播放。这些都不在战斗逻辑里直接调用，而是由事件驱动，表现层订阅后各自演出，逻辑层不关心表现细节。</p>
+
+<h1 id="section-5" class="chapter">五、数据与存档</h1>
+
+<h2 id="section-5-1">5.1 存档结构</h2>
+<p>存档以 JSON 形式写在应用数据目录下，内容包含最高分、排行榜、关卡解锁进度、元素解锁状态、图鉴收集计数、跨关成长数值。</p>
+
+<h2 id="section-5-2">5.2 序列化方案</h2>
+<p>Unity 内置的 JSON 工具不支持字典，而图鉴需要"敌人类型到击杀数"的映射。项目的做法是用键值对列表模拟字典：定义一个包含键与计数的结构体，序列化为数组，读取时遍历成字典使用。这样既保住了内置序列化的零依赖，又满足了字典语义。</p>
+<p>读档做了两层防御：逐字段判空并给默认值，外层再包一层异常捕获，遇到损坏的存档直接回退到新档，而不是让游戏卡在启动阶段。</p>
+
+<h2 id="section-5-3">5.3 首次通关判定的顺序问题</h2>
+<p>跨关成长只在"首次通关"时写入，反复刷同一关不能刷属性。这条规则本身简单，但实现顺序极易出错，踩过一次坑。</p>
+<p>正确的顺序是三步：先判断本关是否已通关，再结算并提交成长，最后才解锁下一关。如果把解锁放在最前面，判定时最大已解锁关卡已经加一，本关永远会被认为"已经通过"，成长就永远不会提交。同理，提交成长必须早于关卡的结束清理，否则玩家对象被回收，属性已经取不到。</p>
+<p>阵亡、中途退出、按 Esc 返回菜单这三种情况都不写入任何成长，本关收益作废。这条规则写在关卡管理器的统一出口里，而不是分散在各个分支上。</p>
+
+<h1 id="section-6" class="chapter">六、关键技术问题与解决</h1>
+<p>开发过程中遇到的问题按"现象、原因、方案"三列归档，下表是其中排查成本较高的八项。</p>
+<table>
+  <thead>
+    <tr><th style="width:27%">问题现象</th><th style="width:33%">根本原因</th><th>解决方案</th></tr>
+  </thead>
+  <tbody>
+    <tr><td>高刷屏下按大招偶尔无响应</td><td>逻辑走固定步长，真实帧的按键被丢弃</td><td>真实帧缓存按键标志位，逻辑步消费后清零</td></tr>
+    <tr><td>Boss 名字"消失"，底板在但无字</td><td>中文字体行高大于控件高度，整行不渲染</td><td>统一改为溢出模式，控件高度按字号一点五倍给</td></tr>
+    <tr><td>九宫格面板拉伸后破面</td><td>默认 Tight 网格按 alpha 裁剪</td><td>改用 FullRect 网格，边框在创建时传入</td></tr>
+    <tr><td>洞穴遮罩把草地一并裁掉</td><td>遮罩排序范围过宽</td><td>收窄遮罩影响范围</td></tr>
+    <tr><td>点击打不到敌人</td><td>碰撞体在子节点，组件挂在父节点</td><td>改用向上查找组件</td></tr>
+    <tr><td>面板按钮点不动</td><td>生成的图片默认不接收射线</td><td>交互控件显式开启射线接收</td></tr>
+    <tr><td>反复刷关把属性刷满</td><td>通关判定与解锁顺序颠倒</td><td>先判定、后提交、再解锁</td></tr>
+    <tr><td>存档损坏导致无法启动</td><td>明文 JSON 可被手改</td><td>逐字段兜底加异常捕获回退新档</td></tr>
+  </tbody>
+</table>
+
+<h1 id="section-7" class="chapter">七、工程化与工具链</h1>
+
+<h2 id="section-7-1">7.1 资源导入自动化</h2>
+<p>图片导入设置原本需要逐张手动指定类型、网格模式、轴心，一次导入几十张图时极易漏配。项目写了一个资源后处理器，监听导入流程，凡是位于指定目录下的图片，自动按精灵、单图、全矩形、居中的规则设置。新增美术资源只要丢进目录，导入参数自动正确。</p>
+
+<h2 id="section-7-2">7.2 界面骨架一键生成</h2>
+<p>六个传统面板涉及上百个控件与字段引用，手工搭建既慢又容易连错。编辑器扩展提供了一个菜单项，一键生成八个面板对象并自动完成字段连线，生成后仍可自由修改。这把"搭骨架"的时间从数小时压缩到几秒，且不会出现漏连导致的空引用。</p>
+
+<h2 id="section-7-3">7.3 命令行构建与打包</h2>
+<p>项目使用 Unity 批处理模式完成自动构建：指定工程路径、输出路径与日志路径，无界面执行，构建完成后直接产出可执行文件与数据目录。构建过程不依赖人工点击，便于反复出包与回归验证。</p>
+<p>这里遇到过一个环境问题：图形界面关闭后直接调用编辑器，进程会立即返回，日志停在许可握手阶段，看起来像构建失败。实际原因是编辑器进程切换导致父进程提前退出。解决办法是启动后轮询进程状态，等待真正退出再读日志与产物，而不是依赖返回值。</p>
+
+<h1 id="section-8" class="chapter">八、测试与验证</h1>
+<p>交付前对可执行包做了一轮冒烟验证，验证项与结论如下。</p>
+<table>
+  <thead>
+    <tr><th style="width:22%">验证项</th><th style="width:48%">方法</th><th>结论</th></tr>
+  </thead>
+  <tbody>
+    <tr><td>能否启动</td><td>直接运行可执行文件，观察进程存活</td><td>通过，20 秒后进程稳定存活</td></tr>
+    <tr><td>运行期异常</td><td>读取播放器日志</td><td>通过，无异常与报错堆栈</td></tr>
+    <tr><td>标题页渲染</td><td>抓取窗口客户区画面</td><td>通过，标题与提示文字正常显示</td></tr>
+    <tr><td>中文显示</td><td>目视检查界面文字</td><td>通过，无缺字与方块</td></tr>
+    <tr><td>流程可用性</td><td>模拟按键进入登录页</td><td>通过，进入流程正常</td></tr>
+    <tr><td>显卡兼容</td><td>在独立显卡环境下运行</td><td>通过，Direct3D 11 正常初始化</td></tr>
+  </tbody>
+</table>
+<p>验证过程中另外发现两处界面可读性问题：登录页的副标题与提示文字直接压在明亮天空背景上，对比度不足；输入框的占位文字与底色接近。这两项已列入后续优化清单。</p>
+
+<h1 id="section-9" class="chapter">九、已知不足与后续计划</h1>
+
+<h2 id="section-9-1">9.1 现存问题</h2>
+<table>
+  <thead>
+    <tr><th style="width:14%">类别</th><th style="width:44%">具体问题</th><th>影响</th></tr>
+  </thead>
+  <tbody>
+    <tr><td>性能</td><td>子弹与特效走即时创建与销毁，未使用对象池</td><td>弹幕最密时存在垃圾回收抖动风险</td></tr>
+    <tr><td>性能</td><td>碰撞为朴素双重循环</td><td>敌人数量大幅提升后会成为瓶颈</td></tr>
+    <tr><td>逻辑</td><td>升级保底计数为实例字段且不归零</td><td>仅在整个进程的头两次升级生效</td></tr>
+    <tr><td>逻辑</td><td>无尽模式的地图轮替未实现</td><td>无尽模式复用单一地图</td></tr>
+    <tr><td>逻辑</td><td>部分预留字段未接线</td><td>存在无效分支与冗余代码</td></tr>
+    <tr><td>交互</td><td>部分界面文字对比度不足</td><td>影响首次上手的可读性</td></tr>
+    <tr><td>交互</td><td>未适配触屏与手柄</td><td>仅支持键鼠</td></tr>
+    <tr><td>存档</td><td>明文 JSON 无校验</td><td>存档可被直接修改</td></tr>
+    <tr><td>规范</td><td>关卡数值为硬编码静态表</td><td>调数值需改代码重新编译</td></tr>
+  </tbody>
+</table>
+
+<h2 id="section-9-2">9.2 后续计划</h2>
+<p>第一优先级是性能：把子弹、特效、飘字迁入对象池，把碰撞改为网格空间划分，这两项完成后可支撑数倍于现在的弹幕密度。</p>
+<p>第二优先级是把硬编码的关卡表迁移到 ScriptableObject，让数值配置脱离代码，策划可以直接在编辑器里调参并即时预览。</p>
+<p>第三优先级是表现补齐：为五种元素敌人制作独立受击动画，补充背景音乐与更丰富的打击音效，并针对不同分辨率做一次系统性的自适应验证。</p>
+<p>交互层面计划补上触屏与手柄支持，同时统一梳理一遍文字与背景的对比度，把登录页与结算页的可读性问题解决掉。</p>
+
+<h1 id="section-10" class="chapter">十、交付物与运行说明</h1>
+<p>本次交付包含三部分内容：可运行的游戏包、运行说明与本开发文档。</p>
+<p>运行方式为解压后双击可执行文件，无需安装。可执行文件必须与同目录下的数据文件夹、运行时库保持在一起，单独拷贝可执行文件无法启动。存档位于系统应用数据目录，删除存档文件即可重新开始。</p>
+<p>最低配置为 64 位 Windows 10 及以上系统、支持 Direct3D 11 的显卡、4GB 内存与约 400MB 磁盘空间；推荐 1920×1080 分辨率与 8GB 内存。</p>
+
+<h1 id="section-11" class="chapter">附录 A 核心脚本索引</h1>
+<table>
+  <thead>
+    <tr><th style="width:24%">关注点</th><th style="width:30%">入口文件</th><th>关键函数</th></tr>
+  </thead>
+  <tbody>
+    <tr><td>主循环与伤害结算</td><td><code>GameManager.cs</code></td><td><code>Update</code>、<code>Step</code>、<code>HandleCollisions</code>、<code>Cull</code></td></tr>
+    <tr><td>玩家行为</td><td><code>PlayerController.cs</code></td><td><code>Update</code>、<code>Step</code>、<code>TryShoot</code>、<code>AddExp</code></td></tr>
+    <tr><td>关卡流程</td><td><code>LevelManager.cs</code></td><td><code>StartLevel</code>、<code>LevelVictory</code>、<code>StopLevel</code></td></tr>
+    <tr><td>波次生成</td><td><code>WaveSpawner.cs</code></td><td><code>StartLevel</code>、<code>Step</code>、<code>SpawnWave</code></td></tr>
+    <tr><td>Boss 行为</td><td><code>BossController.cs</code></td><td><code>Step</code>、<code>Shoot</code>、<code>StartCast</code></td></tr>
+    <tr><td>Boss 技能</td><td><code>BossSkills.cs</code></td><td><code>BossSummon.Step</code>、各技能 <code>ActiveTick</code></td></tr>
+    <tr><td>元素规则</td><td><code>ElementDatabase.cs</code></td><td><code>GetMultiplier</code>、<code>GetReaction</code></td></tr>
+    <tr><td>战斗界面</td><td><code>HUD.cs</code></td><td><code>BuildUI</code>、<code>BuildLeftPanel</code>、<code>BuildMinimap</code>、<code>NewText</code></td></tr>
+    <tr><td>存档</td><td><code>SaveSystem.cs</code></td><td><code>Load</code>、<code>Save</code>、<code>BumpCount</code></td></tr>
+    <tr><td>贴图生成</td><td><code>SpriteFactory.cs</code></td><td><code>WhiteSprite</code>、<code>CircleSprite</code>、<code>RingSprite</code>、<code>FrameSprite</code></td></tr>
+  </tbody>
+</table>
+
+<h1 id="section-12" class="chapter">附录 B 术语表</h1>
+<table>
+  <thead>
+    <tr><th style="width:24%">术语</th><th>含义</th></tr>
+  </thead>
+  <tbody>
+    <tr><td>固定步长</td><td>逻辑以恒定时间片推进，与渲染帧率解耦</td></tr>
+    <tr><td>元素反应</td><td>两种相克属性相遇时触发的额外效果，如冻结、超载、融化</td></tr>
+    <tr><td>波次</td><td>关卡内按时间与清场条件分段刷怪的单位</td></tr>
+    <tr><td>跨关成长</td><td>通关后写入永久存档、在后续关卡继承的属性数值</td></tr>
+    <tr><td>灰盒</td><td>仅用色块与基础几何验证玩法、尚未接入美术的阶段</td></tr>
+  </tbody>
+</table>
+
+</section>
+
+</body>
+</html>

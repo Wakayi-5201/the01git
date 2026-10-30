@@ -1,0 +1,54 @@
+# Unity 生成目录
+/[Ll]ibrary/
+/[Tt]emp/
+/[Oo]bj/
+/[Bb]uild/
+/[Bb]uilds/
+/[Ll]ogs/
+/[Uu]ser[Ss]ettings/
+/[Mm]emoryCaptures/
+
+# Unity / IDE 生成文件
+*.csproj
+*.unityproj
+*.sln
+*.suo
+*.user
+*.userprefs
+*.pidb
+*.booproj
+*.svd
+*.pdb
+*.mdb
+*.opendb
+*.VC.db
+*.pidb.meta
+*.pdb.meta
+*.mdb.meta
+sysinfo.txt
+crashlytics-build.properties
+~UnityDirMonSyncFile~*
+
+# 编辑器与系统文件
+.vs/
+.vscode/
+.idea/
+.gradle/
+.DS_Store*
+Thumbs.db
+Desktop.ini
+
+# Plastic SCM（本项目原有版本控制目录）
+.plastic/
+/Assets/Plugins/PlasticSCM*
+*.private
+*.private.meta
+
+# 构建产物
+*.apk
+*.aab
+*.app
+*.unitypackage
+/[Aa]ssets/[Aa]ddressable[Aa]ssets[Dd]ata/*/*.bin*
+/[Aa]ssets/[Ss]treamingAssets/aa/*
+/[Aa]ssets/[Aa]sset[Ss]tore[Tt]ools*

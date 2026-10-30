@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<title>元素战机 · 首页预览</title>
+<style>
+  html,body{margin:0;height:100%;background:#0b0a1a;overflow:hidden;font-family:"Microsoft YaHei",sans-serif}
+  .stage{position:relative;width:100vw;height:100vh;display:flex;align-items:center;justify-content:center}
+  .bg{position:absolute;inset:0;background:url("../../Resources/Sprites/界面/首页背景.png") center/cover no-repeat}
+  .prompt{
+    position:absolute;left:50%;top:calc(50% - 145px + 50vh);transform:translate(-50%,-50%);
+    /* 1080 设计稿里文字中心 y≈392，等比换算用 vh */
+    top:36.3vh;
+    color:#fff;font-size:clamp(14px,1.85vh,28px);letter-spacing:.35em;font-weight:700;
+    text-shadow:0 0 12px rgba(200,180,255,.9),2px 2px 0 #5a3ca0;
+    animation:breathe 1.45s ease-in-out infinite;
+    pointer-events:none;white-space:nowrap;
+  }
+  @keyframes breathe{
+    0%,100%{opacity:.25;text-shadow:0 0 4px rgba(200,180,255,.4),2px 2px 0 #5a3ca0}
+    50%{opacity:.92;text-shadow:0 0 16px rgba(230,210,255,1),2px 2px 0 #5a3ca0}
+  }
+  .tip{position:absolute;bottom:12px;width:100%;text-align:center;color:rgba(255,255,255,.45);font-size:12px;letter-spacing:.2em}
+</style>
+</head>
+<body>
+  <div class="stage">
+    <div class="bg"></div>
+    <div class="prompt">—— 按 任 意 键 开 始 ——</div>
+    <div class="tip">效果预览 · 与 Unity 内 TitleScreenController 的呼吸节奏一致</div>
+  </div>
+</body>
+</html>
